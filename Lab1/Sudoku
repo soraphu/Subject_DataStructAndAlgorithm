@@ -1,0 +1,95 @@
+package suduku;
+
+public class Suduku {
+    public static void main ( String[] args ){
+        int n[][][][] = {   //[ แถวบล็อค ][ บล็อค3x3 ][ {ช่อง} ][ ,เลข, ]
+            {{{5,3,4},{6,7,2},{1,9,8}},
+            {{6,7,8},{1,9,5},{3,4,2}},
+            {{9,1,2},{3,4,8},{5,6,7}}},
+            
+            {{{8,5,9},{4,2,6},{7,1,3}},
+            {{7,6,1},{8,5,3},{9,2,4}},
+            {{4,2,3},{7,9,1},{8,5,6}}},
+            
+            {{{9,6,1},{2,8,7},{3,4,5}},
+            {{5,3,7},{4,1,9},{2,8,6}},
+            {{2,8,4},{6,3,5},{1,7,9}}}
+        };
+        for( int i=0 ; i<3 ; i++ ){ //show block-suduku
+            for( int j=0 ; j<3 ; j++ ){
+                separateBlock( n, i, j ) ;
+            }
+        }//Big-for
+        
+        System.out.println( "----PrintCol :" );
+        for( int c = 0 ; c < 3 ; c++ ){
+            printCol( n, c );
+        }
+        System.out.println();
+
+        System.out.println( "----PrintRow :" );
+        for( int r = 0 ; r < 3 ; r++ ){
+            printRow( n, r );
+        }
+        System.out.println();
+        
+    }//main 
+    
+    static void separateBlock( int n[][][][], int r_block, int c_block ){
+        String st = "" ;
+        for( int i=0 ; i<n[r_block][c_block].length ; i++ ){
+            for( int j=0 ; j<n[r_block][c_block][0].length ; j++ ){
+                System.out.print( n[ r_block ][ c_block ][ i ][ j ] );
+                st = st+n[ r_block ][ c_block ][ i ][ j ];
+            }
+            System.out.println();
+        }
+        System.out.println( "^^^" + checkSudoku( st ));
+    }//separate
+    
+    static boolean checkSudoku( String st ){ //เช็ค true-false
+        String ch, sequence ;
+        boolean win = true ;
+        for( int i=0 ; i < st.length()-1 ; i++ ){ 
+            ch = st.substring( i, i+1 );
+            sequence = st.substring( i+1 );
+            if( sequence.contains( ch ) ){
+                win = false ;
+                break ;
+            }//if
+        }//for
+    return win ;//**
+    }//checkSu
+
+    static void printRow(int n[][][][], int r){
+        String st = "" ;//**
+        for(int rs = 0; rs < 3; rs++){
+            for(int i = 0; i < n[r].length; i++){
+                for(int j=0; j < n[r][i].length; j++){
+                    System.out.print(n[r][i][rs][j]);                   
+                    st = st + n[ r ][ i ][ rs ][ j ];
+                    //System.out.print( "<" + st + ">" ); <--//ไว้ดูกระบวนการใส่ค่าให้ st               
+                }
+        }
+        System.out.print( " -> " + checkSudoku( st ));//addon
+        st = "" ;//addon
+        System.out.println();
+      }
+    }//end Row
+
+    static void printCol(int n[][][][], int c){
+      String st = "" ;//**
+      for(int cs = 0; cs < 3; cs++){
+        for(int r = 0; r < 3; r++){
+          for(int j=0; j < 3; j++){
+            System.out.print(n[r][c][j][cs]);
+            st = st + n[ r ][ c ][ j ][ cs ];//addon
+          }
+        }
+        System.out.print( " -> " + checkSudoku( st ));//addon
+        st = "" ;//**
+        System.out.println();
+      }
+    }//end Col
+
+}//entire code
