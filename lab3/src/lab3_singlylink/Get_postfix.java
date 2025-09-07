@@ -68,7 +68,7 @@ public class Get_postfix {
         }//for: loop all string. 
         while( bottom != null ){
             pop();
-        }//while: When out of input -> pop stack until stack.
+        }//while: When out of input -> pop stack until stack empty.
         System.out.println("+-----+------+-------------------------+");
         System.out.print("|            |");
         showPostfix();
